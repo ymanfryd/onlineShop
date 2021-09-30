@@ -1,0 +1,19 @@
+@import 'variables.scss';
+
+.btn {
+  padding: $padding $padding*2;
+  background: $blue-bg;
+  color: #ffffff;
+  border: 0;
+  border-radius: $radius;
+  outline: none;
+  cursor: pointer;
+  box-shadow: 0 2px 0 0 #3d6188;
+  &:hover {
+    background: $blue-bg-hover;
+  }
+  &:active {
+    font-size: 11px;
+    box-shadow: 0 0 0 0 #2c3e50 ;
+  }
+}
