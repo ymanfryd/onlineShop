@@ -1,5 +1,8 @@
 # tutorial_online_shop
 
+## Project was written using [course](https://www.youtube.com/watch?v=22W54aRGr3Q&list=PLb6TvuNosCJW_N3wqAUYsp7DvUzfyvbvB&index=2)
+
+
 ## Project setup
 ```
 npm install
