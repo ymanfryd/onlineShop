@@ -1,4 +1,7 @@
 export default {
+    SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
+        state.searchValue = value
+    },
     SWITCH_MOBILE: (state) => {
         state.isMobile = true
         state.isDesktop = false
@@ -34,19 +37,5 @@ export default {
             state.cart[index].quantity -= 1
         }
     },
-    SELECT_BY_CATEGORY: (state, category) => {
-        if (category === 'all') {
-            state.selectedByCategory = state.products
-        } else if (category !== 'select') {
-        state.selectedByCategory = state.products.filter((product) =>
-        product.category === category)
-        }
-    },
-    SELECT_BY_PRICE: (state, [minPrice, maxPrice]) => {
-        console.log(state.selectedByCategory)
-        state.selectedProducts = state.selectedByCategory.filter((product) =>
-            product.price >= minPrice && product.price <= maxPrice
-        )
 
-    }
 }

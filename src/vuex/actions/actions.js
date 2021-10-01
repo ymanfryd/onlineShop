@@ -1,4 +1,7 @@
 export default {
+    GET_SEARCH_VALUE_TO_VUEX ({commit}, value) {
+      commit('SET_SEARCH_VALUE_TO_VUEX', value)
+    },
     SET_MOBILE({commit}) {
         commit ('SWITCH_MOBILE')
     },
@@ -17,10 +20,5 @@ export default {
     DECREMENT_CART_ITEM({commit}, index) {
         commit('DECREMENT', index)
     },
-    SELECT_PRODUCTS_BY_CATEGORY({commit}, category) {
-        commit('SELECT_BY_CATEGORY', category)
-    },
-    SELECT_PRODUCTS_BY_PRICE({commit}, minPrice, maxPrice) {
-        commit('SELECT_BY_PRICE',minPrice, maxPrice )
-    },
+
 }

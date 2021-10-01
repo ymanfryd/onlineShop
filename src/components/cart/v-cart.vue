@@ -15,7 +15,7 @@
   />
   <div class="v-cart__total">
     <p class="total__name">Total</p>
-    <p>{{cartTotalCost}}$</p>
+    <p>{{cartTotalCost | toFix}}$</p>
   </div>
 </div>
 </template>
@@ -23,6 +23,7 @@
 <script>
 import vCartItem from './v-cart-item'
 import {mapActions} from 'vuex'
+import toFix from "@/filters/toFix";
 
 
 export default {
@@ -37,6 +38,9 @@ export default {
         return []
       }
     }
+  },
+  filters: {
+    toFix
   },
   computed: {
     cartTotalCost() {
@@ -74,6 +78,7 @@ export default {
 
 <style lang="scss">
 .v-cart {
+  padding-top: 20px;
   margin-bottom: 120px;
   &__total {
     position: fixed;
@@ -83,10 +88,10 @@ export default {
     padding: $padding*2 $padding*3;
     display: flex;
     justify-content: center;
-    background-color: #45a0e1;
+    background-color: $blue-bg;
     color: #ffffff;
     font-size: 20px;
-
+    box-shadow: 0 0 10px $shadow-hover;
   }
   .total__name {
     margin-right: $margin*2 ;

@@ -2,17 +2,18 @@
 <div class="v-cart-item">
   <img class="v-cart-item__image" :src=" require('../../assets/images/' + cart_item_data.image)" alt="Product image">
   <div class="v-cart-item__info">
-    <p>{{cart_item_data.name}}</p>
-    <p>{{cart_item_data.price}}</p>
+    <h3>{{cart_item_data.name}}</h3>
+    <h4>{{cart_item_data.price | toFix}}</h4>
     <p>{{cart_item_data.article}}</p>
   </div>
   <div class="v-cart-item__quantity">
-    <p>Quantity: </p>
+    <h4>Quantity: </h4>
     <span>
+      <h3>
       <span class="quantity__button" @click="decrementItem">-</span>
     {{cart_item_data.quantity}}
       <span class="quantity__button" @click="incrementItem">+</span>
-
+      </h3>
     </span>
   </div>
   <button class="btn" @click="deleteFromCart">Delete</button>
@@ -21,6 +22,8 @@
 
 <script>
 import {mapActions} from 'vuex'
+import toFix from "@/filters/toFix";
+
 export default {
   name: "v-cart-item",
   props: {
@@ -30,6 +33,9 @@ export default {
         return {}
       }
     }
+  },
+  filters: {
+    toFix
   },
   methods: {
 
@@ -61,7 +67,7 @@ export default {
   padding: $padding*2;
   margin-bottom: $margin*2;
   &__image {
-    max-width: 100px;
+    max-width: 200px;
   }
   .quantity__button {
     cursor: pointer;

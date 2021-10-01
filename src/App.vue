@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <vMainWrapper />
+    <vMainWrapper/>
   </div>
 </template>
 
@@ -15,8 +15,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-        "IS_MOBILE",
-        "IS_DESKTOP"
+      "IS_MOBILE",
+      "IS_DESKTOP"
     ])
   },
   methods: {
@@ -28,12 +28,12 @@ export default {
   mounted() {
     let vm = this
     window.addEventListener('resize', function () {
-      if (window.innerWidth > 767 ) {
+      if (window.innerWidth > 767) {
         vm.SET_DESKTOP()
-        console.log("d",vm.IS_DESKTOP)
+        console.log("d", vm.IS_DESKTOP)
       } else {
         vm.SET_MOBILE()
-        console.log("m",vm.IS_MOBILE)
+        console.log("m", vm.IS_MOBILE)
       }
     })
   }
@@ -46,13 +46,15 @@ body {
   background: #efefef;
   text-transform: uppercase;
 }
+
 #app {
   font-family: "Dubai Light", sanis-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
-  margin-top: 60px;
+  margin-top: 100px;
+  text-decoration: none;
 }
 
 </style>

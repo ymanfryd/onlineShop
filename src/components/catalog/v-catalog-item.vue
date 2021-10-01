@@ -1,63 +1,140 @@
 <template>
-<div class="v-catalog-item"
-     >
-  <img v-if="!isImgHovered" class="v-catalog-item__image"
-       :src=" require('../../assets/images/' + product_data.image)"
-       alt="product image"
-       @mouseenter="isImgHovered = !isImgHovered"
+  <div class="v-catalog-item"
   >
-  <img v-else class="v-catalog-item__image"
-       :src=" require('../../assets/images/' + product_data.hoverImage)"
-       alt="product image"
-       @mouseleave="isImgHovered = !isImgHovered"
-  >
-  <p class="v-catalog-item__name">{{product_data.name}}</p>
-  <p class="v-catalog-item__prise">Price: {{product_data.price.toFixed()}} $</p>
-  <button class="v-catalog-item__add_to_cart_btn btn"
-          @click="addToCart"
+    <v-popup
+        v-show="isInfoPopupVisible"
+        @closePopup="closePopupInfo"
+        rightBtnTitle="Add to cart"
+        :popupTitle="product_data.name"
+        @rightBtnAction="addToCart"
+    >
+      <img v-if="!isImgHovered" class="v-catalog-item__image"
+           :src=" require('../../assets/images/' + product_data.image)"
+           alt="product image"
+           @mouseenter="isImgHovered = !isImgHovered"
+      >
+      <img v-else class="v-catalog-item__image"
+           :src=" require('../../assets/images/' + product_data.hoverImage)"
+           alt="product image"
+           @mouseleave="isImgHovered = !isImgHovered"
+      >
+      <div class="">
+        <h2 class="v-catalog-item__name">{{ product_data.name }}</h2>
+        <h4 class="v-catalog-item__prise">Price: {{ product_data.price | toFix }}</h4>
+        <p class="v-catalog-item__prise"> {{ product_data.category }} </p>
+      </div>
 
-  >Add to cart</button>
-</div>
+    </v-popup>
+    <img v-if="!isImgHovered" class="v-catalog-item__image"
+         :src=" require('../../assets/images/' + product_data.image)"
+         alt="product image"
+         @mouseenter="isImgHovered = !isImgHovered"
+    >
+    <img v-else class="v-catalog-item__image"
+         :src=" require('../../assets/images/' + product_data.hoverImage)"
+         alt="product image"
+         @mouseleave="isImgHovered = !isImgHovered"
+    >
+    <div class="product-info">
+      <h2 class="v-catalog-item__name">{{ product_data.name }}</h2>
+      <p class="v-catalog-item__prise">Price: {{ product_data.price | toFix }}</p>
+
+      <h4 class="info_btn"
+          @click="showPopupInfo"
+      >Show info</h4>
+      <button class="btn"
+              @click="addToCart"
+      >Add to cart
+      </button>
+
+    </div>
+  </div>
 </template>
 
 <script>
+import vPopup from '../popup/v-popup'
+import toFix from "@/filters/toFix";
+
 export default {
   name: "v-catalog-item",
   props: {
     product_data: {
       type: Object,
       default() {
-        return {
-        }
+        return {}
+      }
+    },
+    isDesktop: {
+      type: Boolean,
+      default() {
+        return false
       }
     }
   },
+  components: {
+    vPopup
+  },
   data() {
-    return{
-      isImgHovered: false
+    return {
+      isImgHovered: false,
+      isInfoPopupVisible: false
     }
+  },
+  filters: {
+    toFix
   },
   methods: {
     addToCart() {
-      this.$emit('addToCart',this.product_data)
+      this.$emit('addToCart', this.product_data)
     },
-
+    showPopupInfo() {
+      this.isInfoPopupVisible = true
+    },
+    closePopupInfo() {
+      this.isInfoPopupVisible = false
+    }
   },
 
 }
 </script>
 
 <style lang="scss">
-  .v-catalog-item {
-    background: #fff;
-    flex-basis: 25%;
-    border-radius: 2%;
-    box-shadow: 0 0 8px 0 rgba(151, 178, 239, 0.75);
-    padding: $padding*2;
-    margin-bottom: $margin*2;
-  &__image {
-     width: 200px;
-   }
-
+.v-popup {
+  img {
+    width: 400px;
   }
+
+}
+
+.v-catalog-item {
+  background: #fff;
+  flex-basis: 25%;
+  border-radius: 2%;
+  box-shadow: 0 0 8px 0 rgba(151, 178, 239, 0.75);
+  padding: $padding*2;
+  margin-bottom: $margin*2;
+
+  &__image {
+    width: 200px;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    p {
+      padding: 0;
+      margin: 0;
+    }
+  }
+
+  .info_btn {
+    cursor: pointer;
+
+    &:hover {
+      color: $text-hover;
+    }
+  }
+}
 </style>
