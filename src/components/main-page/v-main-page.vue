@@ -1,6 +1,6 @@
 <template>
 <div class="v-main-page">
-<h1>Online shop</h1>
+<h1 class="v-main-page__header">Online shop</h1>
   <h2>
     <router-link :to="{name: 'catalog'}">
       Go to catalog
@@ -15,11 +15,21 @@ export default {
 }
 </script>
 
-<style scoped>
+<style lang="scss">
 
   .v-main-page {
     margin-top: 200px;
-    text-decoration: none;
+    &__header {
+      font-size: 70px;
+    }
+    a {
+      text-decoration: none;
+      color: #2c3e50;
+      &:hover {
+        color: $text-hover;
+       }
+    }
+
   }
 
 

@@ -39,6 +39,13 @@
 
       </div>
       <div class="v-catalog__list">
+        <h3 v-if="!sortedProducts.length">Nothing found
+          <br>
+          <div
+              class="back-to-catalog"
+              @click="resetCatalog()"
+          > back to catalog</div>
+        </h3>
         <v-catalog-item v-for="product in sortedProducts"
                         :key="product.article"
                         :product_data="product"
@@ -143,6 +150,12 @@ export default {
         this.maxPrice = 100
 
     },
+    resetCatalog() {
+      this.sortedProducts = this.PRODUCTS
+      this.minPrice = 0
+      this.maxPrice = 100
+      this.selected = 'all'
+    }
 
   },
   watch: {
@@ -196,6 +209,14 @@ export default {
       font-size: 15px;
     }
   }
+    .back-to-catalog {
+      margin-top: 20px;
+      cursor: pointer;
+      &:hover {
+        color: $text-hover;
+      }
+    }
+
 
   .filters {
     display: flex;

@@ -1,8 +1,11 @@
 {
   "products": [
     {
-      "image": "1.png",
-      "hoverImage": "1_1.jpg",
+      "images": [
+        "1.png",
+        "1_1.jpg",
+        "sizes-men.png"
+      ],
       "name": "T-shirt 1",
       "price": 21.234234234,
       "article": "T1",
@@ -10,8 +13,11 @@
       "category": "Men"
     },
     {
-      "image": "2.png",
-      "hoverImage": "2_1.jpg",
+      "images": [
+        "2.png",
+        "2_1.jpg",
+        "sizes-women.png"
+      ],
       "name": "T-shirt 2",
       "price": 31.12312412,
       "article": "T2",
@@ -19,8 +25,11 @@
       "category": "Women"
     },
     {
-      "image": "3.png",
-      "hoverImage": "3_1.jpg",
+      "images": [
+        "3.png",
+        "3_1.jpg",
+        "sizes-women.png"
+      ],
       "name": "T-shirt 3",
       "price": 42.51524,
       "article": "T3",
@@ -28,8 +37,11 @@
       "category": "Women"
     },
     {
-      "image": "4.png",
-      "hoverImage": "4_1.jpg",
+      "images": [
+        "4.png",
+        "4_1.jpg",
+        "sizes-men.png"
+      ],
       "name": "T-shirt 4",
       "price": 53.1245512,
       "article": "T4",
@@ -37,8 +49,11 @@
       "category": "Men"
     },
     {
-      "image": "5.png",
-      "hoverImage": "5_1.jpg",
+      "images": [
+        "5.png",
+        "5_1.jpg",
+        "sizes-women.png"
+      ],
       "name": "T-shirt 5",
       "price": 65.3522314,
       "article": "T5",
@@ -46,8 +61,11 @@
       "category": "Women"
     },
     {
-      "image": "6.png",
-      "hoverImage": "6_1.jpg",
+      "images": [
+        "1.png",
+        "1_1.jpg",
+        "sizes-men.png"
+      ],
       "name": "T-shirt 6",
       "price": 87.4124123,
       "article": "T6",

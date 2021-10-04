@@ -1,6 +1,6 @@
 <template>
 <div class="v-cart-item">
-  <img class="v-cart-item__image" :src=" require('../../assets/images/' + cart_item_data.image)" alt="Product image">
+  <img class="v-cart-item__image" :src=" require('../../assets/images/' + cart_item_data.images[0])" alt="Product image">
   <div class="v-cart-item__info">
     <h3>{{cart_item_data.name}}</h3>
     <h4>{{cart_item_data.price | toFix}}</h4>
