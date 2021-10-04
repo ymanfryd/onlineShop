@@ -11,7 +11,7 @@ npm install
 
 ## Locahost
 ```
-json-config --watch db.json
+json-server --watch db.json
 ```
 
 ### Compiles and hot-reloads for development
