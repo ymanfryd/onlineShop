@@ -46,7 +46,7 @@ export default {
     cartTotalCost() {
       let result = []
       for (let item of this.cart_data) {
-        result.push(item.price * item.quantity)
+        result.push(item.attributes.price * item.quantity)
       }
       result = result.length ? result.reduce((sum, el) => {
         return sum + el
@@ -64,7 +64,6 @@ export default {
     ]),
     deleteFromCart(index) {
       this.DELETE_FROM_CART(index)
-      console.log(index)
     },
     increment(index) {
       this.INCREMENT_CART_ITEM(index)

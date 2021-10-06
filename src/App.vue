@@ -30,10 +30,8 @@ export default {
     window.addEventListener('resize', function () {
       if (window.innerWidth > 767) {
         vm.SET_DESKTOP()
-        console.log("d", vm.IS_DESKTOP)
       } else {
         vm.SET_MOBILE()
-        console.log("m", vm.IS_MOBILE)
       }
     })
   }
@@ -41,14 +39,22 @@ export default {
 }
 </script>
 
-<style>
+<style lang="scss">
 body {
   background: #efefef;
   text-transform: uppercase;
 }
 
+a {
+  text-decoration: none;
+  color: #2c3e50;
+  &:hover {
+    color: $text-hover;
+  }
+}
+
 #app {
-  font-family: "Dubai Light", sanis-serif;
+  font-family: "Dubai Light", sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

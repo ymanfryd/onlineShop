@@ -21,25 +21,25 @@
           @click="changeImgForward"
       ></i>
       <div class="">
-        <h2 class="v-catalog-item__name">{{ product_data.name }}</h2>
-        <h4 class="v-catalog-item__prise">Price: {{ product_data.price | toFix }}</h4>
-        <p class="v-catalog-item__prise"> {{ product_data.category }} </p>
+        <h2 class="v-catalog-item__name">{{ product_data.attributes.name }}</h2>
+        <h4 class="v-catalog-item__prise">Price: {{ product_data.attributes.price | toFix }}</h4>
+        <p class="v-catalog-item__prise"> {{ product_data.attributes.category }} </p>
       </div>
 
     </v-popup>
     <img v-if="!isImgHovered" class="v-catalog-item__image"
-         :src=" require('../../assets/images/' + product_data.images[0])"
+         :src=" require('../../assets/images/' + product_data.attributes.images[0])"
          alt="product image"
          @mouseenter="isImgHovered = !isImgHovered"
     >
     <img v-else class="v-catalog-item__image"
-         :src=" require('../../assets/images/' + product_data.images[1])"
+         :src=" require('../../assets/images/' + product_data.attributes.images[1])"
          alt="product image"
          @mouseleave="isImgHovered = !isImgHovered"
     >
     <div class="product-info">
-      <h2 class="v-catalog-item__name">{{ product_data.name }}</h2>
-      <p class="v-catalog-item__prise">Price: {{ product_data.price | toFix }}</p>
+      <h2 class="v-catalog-item__name">{{ product_data.attributes.name }}</h2>
+      <p class="v-catalog-item__prise">Price: {{ product_data.attributes.price | toFix }}</p>
 
       <h4 class="info_btn"
           @click="showPopupInfo"
@@ -97,7 +97,7 @@ export default {
       this.isInfoPopupVisible = false
     },
     changeImgForward() {
-      if (this.currentPopupImg < this.product_data.images.length - 1) {
+      if (this.currentPopupImg < this.product_data.attributes.images.length - 1) {
         this.currentPopupImg += 1;
       } else {
         this.currentPopupImg = 0;
@@ -107,13 +107,13 @@ export default {
       if (this.currentPopupImg > 0) {
         this.currentPopupImg -= 1;
       } else {
-        this.currentPopupImg = this.product_data.images.length - 1;
+        this.currentPopupImg = this.product_data.attributes.images.length - 1;
       }
     }
   },
   computed: {
     CurrentPopupImgUrl() {
-      return require('../../assets/images/'  + this.product_data.images[this.currentPopupImg])
+      return require('../../assets/images/'  + this.product_data.attributes.images[this.currentPopupImg])
     }
   }
 

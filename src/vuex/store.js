@@ -15,10 +15,13 @@ let store = new Vuex.Store({
     searchValue: '',
     isMobile: false,
     isDesktop: true,
+    isAuthorized: false,
     products: [],
     selectedByCategory: [],
     selectedProducts: [],
-    cart: []
+    cart: [],
+    users: [],
+    currentUser: []
   },
   mutations,
   actions,

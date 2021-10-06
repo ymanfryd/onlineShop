@@ -4,20 +4,29 @@
     <router-link :to="{name: 'mainPage'}">
       <img src="../../assets/logo.png" alt="logo">
     </router-link>
+    <button
+        class="signBtn"
+        @click="SignInFormOpen"
+        v-show="!IS_USER_AUTHORIZED"
+    >Sign in
+    </button>
+    <v-login v-if="isFormVisible"
+             @closeSignForm="isFormVisible = false"
+    />
 
     <form @submit.prevent="Search(searchValue)">
 
       <input
-        type="text"
-        class="form__field"
-        placeholder="Search"
-        name="name"
-        id='name'
-        v-model="searchValue"
-        @submit="Search(searchValue)"
-    />
+          type="text"
+          class="form__field"
+          placeholder="Search"
+          name="name"
+          id='name'
+          v-model="searchValue"
+          @submit="Search(searchValue)"
+      />
 
-    <label for="name" class="form__label" @click="Search(searchValue)">Search</label>
+      <label for="name" class="form__label" @click="Search(searchValue)">Search</label>
       <h4 class="reset_btn" @click="resetSearchField">reset</h4>
     </form>
   </div>
@@ -25,23 +34,40 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import vLogin from '../user/v-login'
 
 export default {
   name: "v-header",
   data() {
     return {
-      searchValue: ''
+      searchValue: '',
+      isFormVisible: false,
     }
+  },
+  components: {
+    vLogin
   },
   computed: {
     ...mapGetters([
-      "SEARCH_VALUE"
+      "SEARCH_VALUE",
+      "USERS",
+      "IS_USER_AUTHORIZED"
     ])
   },
   methods: {
     ...mapActions([
-      "GET_SEARCH_VALUE_TO_VUEX"
+      "GET_SEARCH_VALUE_TO_VUEX",
+        "GET_PRODUCTS_FROM_API"
     ]),
+    SignInFormOpen() {
+
+      this.GET_PRODUCTS_FROM_API()
+      .then((response) => {
+        if (response.data) {
+          this.isFormVisible = true
+        }
+      })
+    },
     Search(value) {
       this.GET_SEARCH_VALUE_TO_VUEX(value)
       this.$router.push('/catalog')
@@ -133,14 +159,14 @@ export default {
     border-image-slice: 1;
   }
 }
-  .reset_btn {
-    position: absolute;
-    top: 3px;
-    right: 70px;
-    color: white;
-    cursor: pointer;
-  }
 
+.reset_btn {
+  position: absolute;
+  top: 3px;
+  right: 70px;
+  color: white;
+  cursor: pointer;
+}
 
 
 </style>

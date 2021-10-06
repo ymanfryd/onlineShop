@@ -44,10 +44,11 @@
           <div
               class="back-to-catalog"
               @click="resetCatalog()"
-          > back to catalog</div>
+          > back to catalog
+          </div>
         </h3>
         <v-catalog-item v-for="product in sortedProducts"
-                        :key="product.article"
+                        :key="product.attributes.article"
                         :product_data="product"
                         @addToCart="addToCart"
         ></v-catalog-item>
@@ -90,7 +91,7 @@ export default {
       "SELECTED_PRODUCTS",
       "IS_MOBILE",
       "IS_DESKTOP",
-      "SEARCH_VALUE"
+      "SEARCH_VALUE",
     ]),
     filteredProducts() {
       if (this.sortedProducts.length) {
@@ -105,8 +106,6 @@ export default {
     ...mapActions([
       "GET_PRODUCTS_FROM_API",
       "ADD_TO_CART",
-      "SELECT_PRODUCTS_BY_CATEGORY",
-      "SELECT_PRODUCTS_BY_PRICE"
     ]),
 
     addToCart(data) {
@@ -116,14 +115,14 @@ export default {
       let vm = this
       this.sortedProducts = [...this.PRODUCTS]
       this.sortedProducts = this.sortedProducts.filter((product) => {
-        return product.price >= vm.minPrice && product.price <= vm.maxPrice
+        return product.attributes.price >= vm.minPrice && product.attributes.price <= vm.maxPrice
       })
       if (category) {
         vm.selected = category
       }
       if (vm.selected === 'Men' || vm.selected === 'Women') {
         this.sortedProducts = this.sortedProducts.filter((product) => {
-          return product.category === vm.selected
+          return product.attributes.category === vm.selected
         })
       }
     },
@@ -139,15 +138,15 @@ export default {
       if (value) {
         this.sortedProducts = this.PRODUCTS
         this.sortedProducts = this.sortedProducts.filter((item) => {
-          return item.name.toLowerCase().includes(value.toLowerCase())
+          return item.attributes.name.toLowerCase().includes(value.toLowerCase())
         })
 
       } else {
         this.sortedProducts = this.PRODUCTS
       }
-        this.selected = 'all'
-        this.minPrice = 0
-        this.maxPrice = 100
+      this.selected = 'all'
+      this.minPrice = 0
+      this.maxPrice = 100
 
     },
     resetCatalog() {
@@ -209,13 +208,15 @@ export default {
       font-size: 15px;
     }
   }
-    .back-to-catalog {
-      margin-top: 20px;
-      cursor: pointer;
-      &:hover {
-        color: $text-hover;
-      }
+
+  .back-to-catalog {
+    margin-top: 20px;
+    cursor: pointer;
+
+    &:hover {
+      color: $text-hover;
     }
+  }
 
 
   .filters {

@@ -1,4 +1,10 @@
 export default {
+    IS_USER_AUTHORIZED(state) {
+        return state.isAuthorized
+    },
+    USERS(state) {
+      return state.users
+    },
     SEARCH_VALUE(state) {
         return state.searchValue
     },
