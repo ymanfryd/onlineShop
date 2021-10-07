@@ -1,4 +1,14 @@
 export default {
+    EMAILS(state) {
+        let emails = [];
+        for (let user of state.users) {
+            emails.push(user.attributes.email)
+        }
+        return emails;
+    },
+    CURRENT_USER(state) {
+      return state.currentUser[0]
+    },
     IS_USER_AUTHORIZED(state) {
         return state.isAuthorized
     },

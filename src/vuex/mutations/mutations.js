@@ -1,10 +1,20 @@
 export default {
+    UPDATE_CART: (state, user) => {
+        user.attributes.cart = state.cart
+    },
+    LOGOUT_USER: (state) => {
+        state.isAuthorized = false
+        state.currentUser = []
+    },
     AUTHORIZE_USER: (state, value) => {
         state.isAuthorized = true
         state.currentUser = value
+        state.currentUser[0].attributes.cart.push(state.cart)
     },
     SET_USER: (state, value) => {
        state.users.push(value)
+        state.currentUser = value
+        console.log(state.currentUser)
     },
     SET_SEARCH_VALUE_TO_VUEX: (state, value) => {
         state.searchValue = value
@@ -25,9 +35,11 @@ export default {
     SET_CART: (state, product) => {
         let isProductExist = false
         state.cart.map(function (item) {
+            // console.log(item.attributes.article)
+            // console.log(item.quantity)
             if (item.attributes.article === product.attributes.article) {
                 isProductExist = true
-                item.attributes.quantity++
+                item.quantity++
             }
         })
         isProductExist || state.cart.push({ ...product, quantity: 1 })
@@ -37,7 +49,9 @@ export default {
         state.cart.splice(index, 1)
     },
     INCREMENT: (state, index) => {
+        console.log(state.cart[index].quantity)
         state.cart[index].quantity += 1
+
     },
     DECREMENT: (state, index) => {
         if (state.cart[index].quantity > 1) {

@@ -16,5 +16,16 @@ export default {
     },
     SET_NEW_USER_TO_API({commit}, user) {
         return axios.post('http://localhost:3000/data', user)
+    },
+    UPDATE_USER_CART({commit}, user) {
+        return axios.put('http://localhostl:3000/data', {id: user.id})
+            .then((response) => {
+                commit('UPDATE_CART', response)
+            })
+            .catch((error) => {
+                console.log(error)
+                return error
+            })
+
     }
 }

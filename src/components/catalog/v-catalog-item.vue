@@ -5,7 +5,7 @@
         v-show="isInfoPopupVisible"
         @closePopup="closePopupInfo"
         rightBtnTitle="Add to cart"
-        :popupTitle="product_data.name"
+        :popupTitle="product_data.attributes.name"
         @rightBtnAction="addToCart"
     >
       <img class="v-catalog-item__image"

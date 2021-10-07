@@ -13,6 +13,15 @@
     <v-login v-if="isFormVisible"
              @closeSignForm="isFormVisible = false"
     />
+    <h2
+        class="welcome_string"
+        v-show="IS_USER_AUTHORIZED"
+    >{{userName}}</h2>
+    <h4
+        class="welcome_string logout"
+        v-show="IS_USER_AUTHORIZED"
+        @click="logout"
+    >Logout</h4>
 
     <form @submit.prevent="Search(searchValue)">
 
@@ -41,7 +50,7 @@ export default {
   data() {
     return {
       searchValue: '',
-      isFormVisible: false,
+      isFormVisible: false
     }
   },
   components: {
@@ -51,13 +60,22 @@ export default {
     ...mapGetters([
       "SEARCH_VALUE",
       "USERS",
-      "IS_USER_AUTHORIZED"
-    ])
+      "IS_USER_AUTHORIZED",
+        "CURRENT_USER"
+    ]),
+    userName() {
+      if (this.CURRENT_USER){
+        return 'Welcome, ' + this.CURRENT_USER.attributes.name
+      }
+      return ''
+    }
+    ,
   },
   methods: {
     ...mapActions([
       "GET_SEARCH_VALUE_TO_VUEX",
-        "GET_PRODUCTS_FROM_API"
+        "GET_PRODUCTS_FROM_API",
+        "LOGOUT"
     ]),
     SignInFormOpen() {
 
@@ -75,6 +93,9 @@ export default {
     resetSearchField() {
       this.searchValue = ''
       this.GET_SEARCH_VALUE_TO_VUEX(this.searchValue)
+    },
+    logout() {
+      this.LOGOUT()
     }
   }
 }
@@ -96,6 +117,25 @@ export default {
 
   img {
     width: 60px;
+  }
+
+  .signBtn {
+    background: none;
+    font-size: 20px;
+    color: white;
+    border: none;
+    box-shadow: 0 0 5px white;
+    padding: 8px 20px;
+    border-radius: 10px;
+    position: relative;
+    left: 5vw;
+  }
+
+  .welcome_string {
+    position: relative;
+    left: 5vw;
+    color: white;
+
   }
 
   .form__group {

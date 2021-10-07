@@ -21,6 +21,7 @@ let store = new Vuex.Store({
     selectedProducts: [],
     cart: [],
     users: [],
+    emails: [],
     currentUser: []
   },
   mutations,

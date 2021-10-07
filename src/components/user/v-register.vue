@@ -21,6 +21,12 @@
           placeholder="CONFIRM PASSWORD"
           v-model="passwordConfirmation"
       >
+      <p class="errors"
+        v-for="(error, index) of errors"
+         :key="index"
+      >
+        {{error}}
+      </p>
       <button type="submit" >register</button>
     </form>
   </div>
@@ -44,12 +50,14 @@ export default {
         }
       },
       passwordConfirmation: '',
+      errors: [],
     }
   },
   computed: {
     ...mapGetters([
         "PRODUCTS",
-        "USERS"
+        "USERS",
+        "EMAILS"
     ])
   },
 
@@ -61,13 +69,18 @@ export default {
     ]),
 
     registrationFormSubmitted() {
+
       this.newUser.id = `${this.PRODUCTS.length + this.USERS.length + 1}`
-      console.log (this.PRODUCTS)
-      console.log (this.USERS)
-      if (this.newUser.attributes.password === this.passwordConfirmation) {
+      if (this.EMAILS.includes(this.newUser.attributes.email)) {
+        this.errors = []
+        this.errors.push("User with this email is already registered")
+      } else if (this.newUser.attributes.password !== this.passwordConfirmation) {
+        this.errors = []
+        this.errors.push("Passwords do not match")
+      } else {
         this.SET_USER_TO_STATE(this.newUser)
         this.SET_NEW_USER_TO_API(this.newUser)
-        this.MAKE_USER_AUTHORIZED(this.newUser)
+        this.MAKE_USER_AUTHORIZED([].push(this.newUser))
         this.$router.push('/catalog')
       }
 
