@@ -105,6 +105,76 @@
         "password": "biba",
         "cart": []
       }
+    },
+    {
+      "type": "users",
+      "id": "8",
+      "attributes": {
+        "name": "boba",
+        "email": "boba@y",
+        "password": "boba",
+        "cart": []
+      }
+    },
+    {
+      "type": "users",
+      "id": "9",
+      "attributes": {
+        "name": "qwerty",
+        "email": "qwe@rt.y",
+        "password": "qwe",
+        "cart": []
+      }
+    },
+    {
+      "type": "users",
+      "id": "10",
+      "attributes": {
+        "name": "qwerty",
+        "email": "qwe@rt.y",
+        "password": "qwe",
+        "cart": []
+      }
+    },
+    {
+      "type": "users",
+      "id": "11",
+      "attributes": {
+        "name": "qwerty",
+        "email": "qwe@rt.y",
+        "password": "qwe",
+        "cart": []
+      }
+    },
+    {
+      "type": "users",
+      "id": "12",
+      "attributes": {
+        "name": "qwerty",
+        "email": "qwe@rt.y",
+        "password": "qwe",
+        "cart": []
+      }
+    },
+    {
+      "type": "users",
+      "id": "13",
+      "attributes": {
+        "name": "qwerty",
+        "email": "qwe@rt.y",
+        "password": "qwe",
+        "cart": []
+      }
+    },
+    {
+      "type": "users",
+      "id": "14",
+      "attributes": {
+        "name": "qwe",
+        "email": "qwe@qw.e",
+        "password": "qwe",
+        "cart": []
+      }
     }
   ]
 }

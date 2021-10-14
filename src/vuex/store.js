@@ -2,10 +2,10 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 
 
-import commonActions from "@/vuex/actions/actions";
-import apiRequests from "@/vuex/actions/api-requests"
-import mutations from "@/vuex/mutations/mutations";
-import getters from "@/vuex/getters/getters";
+import commonActions from "./actions/actions";
+import apiRequests from "./actions/api-requests"
+import mutations from "./mutations/mutations";
+import getters from "./getters/getters";
 
 const actions = {...commonActions, ...apiRequests}
 Vue.use(Vuex);
