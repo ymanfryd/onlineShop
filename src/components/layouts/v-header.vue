@@ -4,26 +4,38 @@
     <router-link :to="{name: 'mainPage'}">
       <img src="../../assets/logo.png" alt="logo">
     </router-link>
+    <div class="btn_container">
     <button
-        class="signBtn"
+        class="signInBtn signBtn"
         @click="SignInFormOpen"
-        v-show="!IS_USER_AUTHORIZED"
+        v-if="!IS_USER_AUTHORIZED"
+        :class="{mobileBtn: !IS_DESKTOP}"
     >Sign in
     </button>
+    <button
+        class="signBtn"
+        @click="GoToRegistration"
+        v-if="!IS_USER_AUTHORIZED"
+        :class="{mobileBtn: !IS_DESKTOP}"
+    >Sign up
+    </button>
+  </div>
     <v-login v-if="isFormVisible"
-             @closeSignForm="isFormVisible = false"
+             @closeSignForm="signed"
+             @toRegistration="GoToRegistration"
     />
-    <h2
-        class="welcome_string"
-        v-show="IS_USER_AUTHORIZED"
-    >{{userName}}</h2>
-    <h4
-        class="welcome_string logout"
-        v-show="IS_USER_AUTHORIZED"
-        @click="logout"
-    >Logout</h4>
-
-    <form @submit.prevent="Search(searchValue)">
+    <div class="welcome_text" v-if="IS_USER_AUTHORIZED">
+      <h2
+          class="welcome_string"
+          :class="{mobileWelcome: !IS_DESKTOP}"
+      >{{ userName }}</h2>
+      <h4
+          class="welcome_string logout"
+          @click="logout"
+          :class="{mobileLogout: !IS_DESKTOP}"
+      >Logout</h4>
+    </div>
+    <form @submit.prevent="Search(searchValue)" v-if="IS_DESKTOP">
 
       <input
           type="text"
@@ -53,6 +65,7 @@ export default {
       isFormVisible: false
     }
   },
+
   components: {
     vLogin
   },
@@ -61,30 +74,36 @@ export default {
       "SEARCH_VALUE",
       "USERS",
       "IS_USER_AUTHORIZED",
-        "CURRENT_USER"
+      "CURRENT_USER",
+      "IS_DESKTOP",
+      "IS_POPUP_VISIBLE"
     ]),
     userName() {
-      if (this.CURRENT_USER){
+      if (this.CURRENT_USER) {
         return 'Welcome, ' + this.CURRENT_USER.attributes.name
       }
       return ''
-    }
-    ,
+    },
+
   },
   methods: {
     ...mapActions([
       "GET_SEARCH_VALUE_TO_VUEX",
-        "GET_PRODUCTS_FROM_API",
-        "LOGOUT"
+      "GET_PRODUCTS_FROM_API",
+      "LOGOUT"
     ]),
     SignInFormOpen() {
+      if (!this.USERS.length) {
+        this.GET_PRODUCTS_FROM_API()
+            .then((response) => {
+              if (response.data) {
+                this.isFormVisible = true
+              }
+            })
+      } else {
+        this.isFormVisible = true
+      }
 
-      this.GET_PRODUCTS_FROM_API()
-      .then((response) => {
-        if (response.data) {
-          this.isFormVisible = true
-        }
-      })
     },
     Search(value) {
       this.GET_SEARCH_VALUE_TO_VUEX(value)
@@ -96,6 +115,14 @@ export default {
     },
     logout() {
       this.LOGOUT()
+    },
+    GoToRegistration() {
+      this.isFormVisible = false
+      this.$router.push('/registration')
+    },
+    signed() {
+      this.isFormVisible = false
+      this.$router.push('/catalog')
     }
   }
 }
@@ -129,13 +156,41 @@ export default {
     border-radius: 10px;
     position: relative;
     left: 5vw;
+    cursor: pointer;
+    &:hover {
+      color: #c3f4ff;
+    }
+  }
+
+  .signInBtn {
+    box-shadow: none;
+    &:hover {
+      color: #c3f4ff;
+    }
+  }
+
+  .mobileBtn {
+    position: relative;
+    transform: translateX(-80%);
+  }
+
+  .welcome_text {
+    width: 80%;
   }
 
   .welcome_string {
+    font-size: 1.4em;
     position: relative;
-    left: 5vw;
     color: white;
+    margin: 0;
+  }
 
+  .logout {
+    font-size: 1em;
+    cursor: pointer;
+    &:hover {
+      color: #c3f4ff;
+    }
   }
 
   .form__group {

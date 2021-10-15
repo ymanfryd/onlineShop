@@ -54,7 +54,7 @@ export default {
       this.areOptionsVisible = !this.areOptionsVisible
     },
     hideSelect(e) {
-      if (!document.querySelector(".v-select").contains(e.target)) {
+      if (!document.querySelector(".v-select") === e.target) {
         this.areOptionsVisible = false;
       }
     }

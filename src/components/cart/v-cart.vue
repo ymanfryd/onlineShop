@@ -3,7 +3,7 @@
   <router-link :to="{name: 'catalog'}">
     <div class="v-catalog__link_to_cart">Back to catalog</div>
   </router-link>
-  <h1>Cart</h1>
+  <h1 :class="{mobileHeader: IS_MOBILE}">Cart</h1>
   <p v-show="!cart_data.length">There are no products in cart...</p>
   <v-cart-item
     v-for="(item, index) in cart_data"
@@ -22,7 +22,7 @@
 
 <script>
 import vCartItem from './v-cart-item'
-import {mapActions} from 'vuex'
+import {mapActions, mapGetters} from 'vuex'
 import toFix from "@/filters/toFix";
 
 
@@ -43,6 +43,9 @@ export default {
     toFix
   },
   computed: {
+    ...mapGetters([
+        "IS_MOBILE"
+    ]),
     cartTotalCost() {
       let result = []
       for (let item of this.cart_data) {
@@ -94,6 +97,9 @@ export default {
   }
   .total__name {
     margin-right: $margin*2 ;
+  }
+  .mobileHeader {
+    width: 40%;
   }
 }
 

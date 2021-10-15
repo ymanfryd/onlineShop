@@ -6,6 +6,7 @@
           placeholder="NAME"
           @click="validateName"
           @input="validateName"
+          :class="{mobileInput: IS_MOBILE}"
           v-model="newUser.attributes.name"
       >
       <div class="errors">
@@ -16,6 +17,7 @@
           placeholder="EMAIL"
           @click="validateEmail"
           @input="validateEmail"
+          :class="{mobileInput: IS_MOBILE}"
           v-model="newUser.attributes.email"
       >
       <p class="error" v-if="errors.email.length">{{ errors.email[0] }}</p>
@@ -25,6 +27,7 @@
           v-model="newUser.attributes.password"
           @click="validatePassword"
           @input="validatePassword"
+          :class="{mobileInput: IS_MOBILE}"
       >
       <input
           type="password"
@@ -32,13 +35,11 @@
           v-model="passwordConfirmation"
           @click="validatePassword"
           @input="validatePassword"
+          :class="{mobileInput: IS_MOBILE}"
       >
       <p class="error" v-if="errors.password.length">{{ errors.password[0] }}</p>
-      <button :class="{disabled_btn: !dataCorrect}" type="submit" :disabled="!{dataCorrect}" >
-        <router-link to="/catalog">
-          register
-        </router-link>
-
+      <button :class="{disabled_btn: dataIncorrect}" type="submit" :disabled="dataIncorrect">
+        register
       </button>
     </form>
   </div>
@@ -67,14 +68,15 @@ export default {
         email: [name],
         password: [name]
       },
-      dataCorrect: false
+      dataIncorrect: true
     }
   },
   computed: {
     ...mapGetters([
       "PRODUCTS",
       "USERS",
-      "EMAILS"
+      "EMAILS",
+      "IS_MOBILE"
     ])
   },
 
@@ -87,11 +89,20 @@ export default {
     ]),
 
     validateName() {
-      if (this.newUser.attributes.name.trim().length) {
+
+      if (this.newUser.attributes.name.trim().length < 16) {
         this.errors.name = []
-        this.checkData()
+
+        if (this.newUser.attributes.name.trim().length) {
+          this.errors.name = []
+          this.checkData()
+        } else {
+          this.errors.name = []
+          this.errors.name.push('This field is required')
+        }
+
       } else {
-        this.errors.name.push('This field is required')
+        this.errors.name.push('Name must not be longer 15 symbols')
         this.checkData()
       }
     },
@@ -138,7 +149,7 @@ export default {
     },
 
     checkData() {
-      this.dataCorrect = !(this.errors.name.length || this.errors.email.length || this.errors.password.length);
+      this.dataIncorrect = (!!this.errors.name.length || !!this.errors.email.length || !!this.errors.password.length);
     },
 
     registrationFormSubmitted() {
@@ -146,12 +157,21 @@ export default {
       this.newUser.id = `${this.PRODUCTS.length + this.USERS.length + 1}`
       this.SET_USER_TO_STATE(this.newUser)
       this.SET_NEW_USER_TO_API(this.newUser)
-      this.MAKE_USER_AUTHORIZED([].push(this.newUser))
+          .then((res) => {
+            console.log(this.newUser.name)
+            localStorage.setItem("user_name", this.newUser.attributes.name)
+            localStorage.setItem("user_email", this.newUser.attributes.email)
+            localStorage.setItem("user_password", this.newUser.attributes.password)
+            localStorage.setItem("user_id", this.newUser.id)
+            this.MAKE_USER_AUTHORIZED(this.newUser)
+            this.$router.push('/catalog')
+          })
+
     }
   },
-    mounted() {
-      this.GET_PRODUCTS_FROM_API()
-    }
+  mounted() {
+    this.GET_PRODUCTS_FROM_API()
+  }
 }
 </script>
 
@@ -173,6 +193,10 @@ export default {
       width: 30%;
     }
 
+    .mobileInput {
+      width: 50%;
+    }
+
     button {
       margin-top: 50px;
       padding: 10px 40px;
@@ -185,9 +209,11 @@ export default {
       font-size: 1em;
       color: white;
     }
+
     .disabled_btn {
       background: #a0aeb2;
     }
+
     .error {
       margin: 0;
       color: darkred;

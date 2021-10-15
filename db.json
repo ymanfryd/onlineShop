@@ -111,7 +111,7 @@
       "id": "8",
       "attributes": {
         "name": "boba",
-        "email": "boba@y",
+        "email": "boba@ya.ru",
         "password": "boba",
         "cart": []
       }
@@ -120,59 +120,9 @@
       "type": "users",
       "id": "9",
       "attributes": {
-        "name": "qwerty",
-        "email": "qwe@rt.y",
-        "password": "qwe",
-        "cart": []
-      }
-    },
-    {
-      "type": "users",
-      "id": "10",
-      "attributes": {
-        "name": "qwerty",
-        "email": "qwe@rt.y",
-        "password": "qwe",
-        "cart": []
-      }
-    },
-    {
-      "type": "users",
-      "id": "11",
-      "attributes": {
-        "name": "qwerty",
-        "email": "qwe@rt.y",
-        "password": "qwe",
-        "cart": []
-      }
-    },
-    {
-      "type": "users",
-      "id": "12",
-      "attributes": {
-        "name": "qwerty",
-        "email": "qwe@rt.y",
-        "password": "qwe",
-        "cart": []
-      }
-    },
-    {
-      "type": "users",
-      "id": "13",
-      "attributes": {
-        "name": "qwerty",
-        "email": "qwe@rt.y",
-        "password": "qwe",
-        "cart": []
-      }
-    },
-    {
-      "type": "users",
-      "id": "14",
-      "attributes": {
-        "name": "qwe",
-        "email": "qwe@qw.e",
-        "password": "qwe",
+        "name": "test@test.ru",
+        "email": "test@test.ru",
+        "password": "test@test.ru",
         "cart": []
       }
     }

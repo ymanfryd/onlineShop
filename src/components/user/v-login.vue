@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrapper" ref="loginWrapper">
-    <div class="v-login">
+    <div class="v-login" :class="{mobileLogin: IS_MOBILE}">
       <form
           action="submit"
           @submit.prevent="SigningIn"
@@ -14,7 +14,7 @@
         >{{ error }}
         </div>
         <button class="submit-btn" type="submit">SIGN IN</button>
-        <div class="register_link" @click="CloseForm">
+        <div class="register_link" @click="toRegistration">
           <router-link to="/registration">register</router-link>
         </div>
       </form>
@@ -41,7 +41,8 @@ export default {
   computed: {
     ...mapGetters([
       "PRODUCTS",
-      "USERS"
+      "USERS",
+        "IS_MOBILE"
     ])
   },
 
@@ -50,19 +51,27 @@ export default {
       "SET_USER_TO_STATE",
       "SET_NEW_USER_TO_API",
       "MAKE_USER_AUTHORIZED",
-      "UPDATE_USER_CART"
+
     ]),
     CloseForm() {
       this.$emit("closeSignForm")
+
+    },
+    toRegistration() {
+      this.$emit("toRegistration")
     },
 
     SigningIn() {
 
       this.currentUser = this.USERS.filter((user) => user.attributes.email === this.user.email)
+      console.log(this.currentUser[0])
       if (this.currentUser.length) {
         if (this.currentUser[0].attributes.password === this.user.password) {
-          this.MAKE_USER_AUTHORIZED(this.currentUser)
-          this.UPDATE_USER_CART(this.currentUser)
+          localStorage.setItem("user_name", this.currentUser[0].attributes.name)
+          localStorage.setItem("user_email", this.currentUser[0].attributes.email)
+          localStorage.setItem("user_password", this.currentUser[0].attributes.password)
+          localStorage.setItem("user_id", this.currentUser[0].id)
+          this.MAKE_USER_AUTHORIZED(this.currentUser[0])
           this.$emit("closeSignForm")
         } else {
           this.errors = []
@@ -136,6 +145,12 @@ export default {
       box-shadow: 0 0 5px #2c3e50;
     }
   }
-
+.mobileLogin {
+  width: 250px;
+  .submit-btn {
+    margin: 20px 50px;
+  }
 }
+}
+
 </style>

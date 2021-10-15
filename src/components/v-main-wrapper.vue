@@ -1,6 +1,6 @@
 <template>
 <div class="v-main-wrapper">
-  <v-header />
+  <v-header v-if="!IS_POPUP_VISIBLE"/>
   <keep-alive>
     <router-view/>
   </keep-alive>
@@ -10,17 +10,21 @@
 
 <script>
 import vHeader from './layouts/v-header'
+import {mapGetters} from 'vuex'
 
 export default {
   name: "v-main-wrapper",
-  computed: {
-  },
   data() {
     return {}
   },
   components: {
     vHeader
   },
+  computed: {
+    ...mapGetters([
+        "IS_POPUP_VISIBLE"
+    ])
+  }
 }
 </script>
 

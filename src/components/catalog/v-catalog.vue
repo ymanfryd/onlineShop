@@ -6,15 +6,17 @@
         <div class="v-catalog__link_to_cart">Cart: {{ CART.length }}</div>
       </router-link>
 
-      <h1>Catalog</h1>
+      <h1 :class="{movedHeader:IS_MOBILE}"
+      >Catalog</h1>
       <div class="filters">
         <v-select
             :options="categories"
             :selected="selected"
             @select="sortByCategories"
+            :class="{mobileSelect: IS_MOBILE}"
         />
 
-        <div class="range-slider">
+        <div class="range-slider" :class="{mobileSlider: IS_MOBILE}">
           <input
               type="range"
               min="0"
@@ -22,6 +24,7 @@
               step="1"
               v-model.number="minPrice"
               @change="setRangeSliders"
+              :class="{mobileSlider: IS_MOBILE}"
           />
           <input
               type="range"
@@ -30,8 +33,9 @@
               step="1"
               v-model.number="maxPrice"
               @change="setRangeSliders"
+              :class="{mobileSlider: IS_MOBILE}"
           />
-          <div class="range-values">
+          <div class="range-values" :class="{mobileRange: IS_MOBILE}">
             <p>Min: {{ minPrice }} </p>
             <p>Max: {{ maxPrice }} </p>
           </div>
@@ -189,7 +193,6 @@ export default {
 
   &__link_to_cart {
     position: absolute;
-    top: 150px;
     right: 20px;
     padding: 6px 16px;
     border-left: 5px solid #45a0e1;
@@ -218,6 +221,12 @@ export default {
     }
   }
 
+  .movedHeader {
+    width: 50%;
+  }
+.mobileSelect {
+  width: 40vw;
+}
 
   .filters {
     display: flex;
@@ -346,6 +355,21 @@ export default {
 
   input[type=range]:focus::-ms-fill-upper {
     background: #629db6;
+  }
+
+  .mobileRange {
+    //width: 40vw;
+
+    p {
+      padding: 5px;
+      font-size: 0.8em;
+      right: 50px;
+      top: 0;
+    }
+
+  }
+  .mobileSlider input[type=range]{
+    top: 180px;
   }
 
 }

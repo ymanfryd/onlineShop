@@ -22,10 +22,34 @@ export default {
   methods: {
     ...mapActions([
       "SET_MOBILE",
-      "SET_DESKTOP"
-    ])
+      "SET_DESKTOP",
+        "MAKE_USER_AUTHORIZED"
+    ]),
+    check() {
+      if (window.innerWidth > 767) {
+        this.SET_DESKTOP()
+      } else {
+        this.SET_MOBILE()
+      }
+    },
+    isAuthorized() {
+      if (localStorage.getItem('user_name')) {
+        let user = {
+          type: 'users',
+          id: localStorage.getItem('user_id'),
+          attributes: {
+            name: localStorage.getItem('user_name'),
+            email: localStorage.getItem('user_email'),
+            password: localStorage.getItem('user_password')
+          }
+        }
+        this.MAKE_USER_AUTHORIZED(user)
+      }
+    }
   },
   mounted() {
+    this.check()
+    this.isAuthorized()
     let vm = this
     window.addEventListener('resize', function () {
       if (window.innerWidth > 767) {

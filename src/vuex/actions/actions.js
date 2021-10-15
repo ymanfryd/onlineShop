@@ -29,4 +29,7 @@ export default {
     DECREMENT_CART_ITEM({commit}, index) {
         commit('DECREMENT', index)
     },
+    CHANGE_POPUP_STATUS({commit}) {
+        commit('CHANGE_POPUP')
+    }
 }

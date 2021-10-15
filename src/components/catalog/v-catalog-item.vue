@@ -9,6 +9,7 @@
         @rightBtnAction="addToCart"
     >
       <img class="v-catalog-item__image"
+           :class="{mobileImg:IS_MOBILE}"
            :src="CurrentPopupImgUrl"
            alt="product image"
       >
@@ -21,9 +22,9 @@
           @click="changeImgForward"
       ></i>
       <div class="">
-        <h2 class="v-catalog-item__name">{{ product_data.attributes.name }}</h2>
+        <h3 class="v-catalog-item__name">{{ product_data.attributes.name }}</h3>
         <h4 class="v-catalog-item__prise">Price: {{ product_data.attributes.price | toFix }}</h4>
-        <p class="v-catalog-item__prise"> {{ product_data.attributes.category }} </p>
+        <h5 class="v-catalog-item__prise"> {{ product_data.attributes.category }} </h5>
       </div>
 
     </v-popup>
@@ -55,7 +56,8 @@
 
 <script>
 import vPopup from '../popup/v-popup'
-import toFix from "@/filters/toFix";
+import toFix from "@/filters/toFix"
+import {mapActions, mapGetters} from 'vuex'
 
 export default {
   name: "v-catalog-item",
@@ -87,14 +89,20 @@ export default {
     toFix
   },
   methods: {
+    ...mapActions([
+        "CHANGE_POPUP_STATUS"
+    ]),
+
     addToCart() {
       this.$emit('addToCart', this.product_data)
     },
     showPopupInfo() {
       this.isInfoPopupVisible = true
+      this.CHANGE_POPUP_STATUS()
     },
     closePopupInfo() {
       this.isInfoPopupVisible = false
+      this.CHANGE_POPUP_STATUS()
     },
     changeImgForward() {
       if (this.currentPopupImg < this.product_data.attributes.images.length - 1) {
@@ -112,6 +120,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+        "IS_MOBILE"
+    ]),
     CurrentPopupImgUrl() {
       return require('../../assets/images/'  + this.product_data.attributes.images[this.currentPopupImg])
     }
@@ -123,9 +134,9 @@ export default {
 
 <style lang="scss">
 .v-popup {
-  height: 700px;
+
   img {
-    width: 400px;
+    width: 350px;
   }
   .arrow_back_ios,
   .arrow_forward_ios{
@@ -142,7 +153,15 @@ export default {
   .arrow_forward_ios {
     right: 20px;
   }
+  .mobileImg {
+    width: 200px;
+  }
 }
+
+
+
+
+
 
 .v-catalog-item {
   background: #fff;

@@ -2,12 +2,30 @@
   <div class="v-cart-item">
     <img class="v-cart-item__image" :src=" require('../../assets/images/' + cart_item_data.attributes.images[0])"
          alt="Product image">
-    <div class="v-cart-item__info">
+    <div class="mobile_info" v-if="IS_MOBILE">
+      <div class="v-cart-item__info">
+        <h3>{{ cart_item_data.attributes.name }}</h3>
+        <h4>{{ cart_item_data.attributes.price | toFix }}</h4>
+      </div>
+      <div class="v-cart-item__quantity">
+        <h4>Quantity: </h4>
+        <span>
+      <h3>
+      <span class="quantity__button" @click="decrementItem">-</span>
+    {{ cart_item_data.quantity }}
+      <span class="quantity__button" @click="incrementItem">+</span>
+      </h3>
+    </span>
+      </div>
+    <button class="btn" @click="deleteFromCart">Delete</button>
+    </div>
+    <div class="empty_div"></div>
+    <div class="v-cart-item__info" v-if="!IS_MOBILE">
       <h3>{{ cart_item_data.attributes.name }}</h3>
       <h4>{{ cart_item_data.attributes.price | toFix }}</h4>
       <p>{{ cart_item_data.attributes.article }}</p>
     </div>
-    <div class="v-cart-item__quantity">
+    <div class="v-cart-item__quantity" v-if="!IS_MOBILE">
       <h4>Quantity: </h4>
       <span>
       <h3>
@@ -17,12 +35,12 @@
       </h3>
     </span>
     </div>
-    <button class="btn" @click="deleteFromCart">Delete</button>
+    <button v-if="!IS_MOBILE" class="btn" @click="deleteFromCart">Delete</button>
   </div>
 </template>
 
 <script>
-import {mapActions} from 'vuex'
+import {mapGetters} from 'vuex'
 import toFix from "@/filters/toFix";
 
 export default {
@@ -37,6 +55,11 @@ export default {
   },
   filters: {
     toFix
+  },
+  computed: {
+    ...mapGetters([
+      "IS_MOBILE"
+    ])
   },
   methods: {
 
@@ -74,6 +97,12 @@ export default {
 
   .quantity__button {
     cursor: pointer;
+  }
+}
+
+@media (max-width: 410px) {
+  .v-cart-item__image {
+    width: 150px;
   }
 }
 </style>

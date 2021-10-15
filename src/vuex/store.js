@@ -22,7 +22,8 @@ let store = new Vuex.Store({
     cart: [],
     users: [],
     emails: [],
-    currentUser: []
+    currentUser: [],
+    isPopupVisible: false
   },
   mutations,
   actions,

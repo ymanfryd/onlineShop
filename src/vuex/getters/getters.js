@@ -1,4 +1,7 @@
 export default {
+    IS_POPUP_VISIBLE(state) {
+        return state.isPopupVisible
+    },
     EMAILS(state) {
         let emails = [];
         for (let user of state.users) {
@@ -7,7 +10,7 @@ export default {
         return emails;
     },
     CURRENT_USER(state) {
-      return state.currentUser[0]
+      return state.currentUser
     },
     IS_USER_AUTHORIZED(state) {
         return state.isAuthorized

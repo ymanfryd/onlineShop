@@ -1,8 +1,8 @@
 <template>
   <div class="popup-wrapper" ref="popupWrapper">
-    <div class="v-popup">
+    <div class="v-popup" :class="{mobile_popup: IS_MOBILE}">
       <div class="v-popup__header">
-        <span><h1>{{ popupTitle }}</h1></span>
+        <span><h2>{{ popupTitle }}</h2></span>
         <span>
           <i
               class="material-icons"
@@ -26,6 +26,8 @@
 </template>
 
 <script>
+import {mapGetters} from 'vuex'
+
 export default {
   name: "v-popup",
   props: {
@@ -38,7 +40,11 @@ export default {
       default: 'Popup name'
     },
   },
-
+  computed: {
+    ...mapGetters([
+        "IS_MOBILE"
+    ])
+  },
   methods: {
     closePopup() {
       this.$emit('closePopup')
@@ -75,13 +81,13 @@ export default {
 .v-popup {
   padding: 16px;
   position: fixed;
-  top: 150px;
+  top: 50px;
   width: 400px;
+  height: 600px;
   border-radius: 2%;
   background-color: #ffffff;
   box-shadow: 0 0 8px 0 rgba(151, 178, 239, 0.75);
   z-index: 10;
-
 
   &__header,
   &__footer {
@@ -95,6 +101,7 @@ export default {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    height: 480px;
   }
 
   .close_button {
@@ -105,6 +112,14 @@ export default {
 
   .material-icons {
     cursor: pointer;
+  }
+
+}
+.mobile_popup {
+  width: 250px;
+  height: 500px;
+  .v-popup__content {
+    height: 360px;
   }
 }
 </style>

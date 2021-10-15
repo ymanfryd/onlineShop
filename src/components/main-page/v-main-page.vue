@@ -1,6 +1,6 @@
 <template>
   <div class="v-main-page">
-    <h1 class="v-main-page__header">Online shop</h1>
+    <h1 class="v-main-page__header" @click="clicked = !clicked" :class="{clickedHeader: clicked}">Online shop</h1>
     <h2>
       <router-link :to="{name: 'catalog'}">
         Go to catalog
@@ -11,7 +11,12 @@
 
 <script>
 export default {
-  name: "v-main-page"
+  name: "v-main-page",
+  data() {
+    return{
+      clicked: false
+    }
+  }
 }
 </script>
 
@@ -22,6 +27,11 @@ export default {
 
   &__header {
     font-size: 70px;
+    cursor: pointer;
+    &:hover {
+      animation: pulse;
+      animation-duration: 1s;
+    }
   }
 
   a {
